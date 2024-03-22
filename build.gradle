@@ -1,0 +1,52 @@
+buildscript {
+    ext {
+        selenium = '4.18.1'
+        testng = '7.9.0'
+        cucumber = '7.15.0'
+        lombok = '1.18.30'
+    }
+}
+plugins {
+    id 'java'
+}
+
+group = 'com.epam'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: "$selenium"
+    testImplementation group: 'org.testng', name: 'testng', version: "$testng"
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: "$cucumber"
+    testImplementation group: 'io.cucumber', name: 'cucumber-core', version: "$cucumber"
+    testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: "$cucumber"
+    testImplementation group: 'org.projectlombok', name: 'lombok', version: "$lombok"
+
+}
+
+java {
+    sourceCompatibility = '11'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+tasks.named('test') {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'html:reports/test-report.html', '--plugin', 'pretty', '--glue', 'reportportal', 'src/test/resources']
+        }
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
