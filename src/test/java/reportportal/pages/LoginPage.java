@@ -32,18 +32,19 @@ public class LoginPage extends BasePage {
     }
 
     public void enterUsername(String username) {
-        getDriver().findElement(usernameTextBox).sendKeys(username);
+        getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(usernameTextBox)).sendKeys(username);
     }
 
     public void enterPassword(String password) {
-        getDriver().findElement(passwordTextBox).sendKeys(password);
+        getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(passwordTextBox)).sendKeys(password);
     }
 
     public void clickLogin() {
-        getDriver().findElement(loginBtn).click();
+        getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(loginBtn)).click();
     }
 
     public void clickLoginWithEPAM() {
+        getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(loginWithEPAM)).click();
         getDriver().findElement(loginWithEPAM).click();
     }
 
@@ -56,7 +57,7 @@ public class LoginPage extends BasePage {
     }
 
     public void clickNext() {
-        getDriver().findElement(nextBtn).click();
+        getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(nextBtn)).click();
     }
 
     public void usePinHyperLink() {

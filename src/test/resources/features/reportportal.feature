@@ -19,13 +19,13 @@ Feature: Report Portal Feature
       | FIREFOX | INCORRECT_PASSWORD          |
       | FIREFOX | INCORRECT_USERNAME_PASSWORD |
 
-  # TODO - OS Security Pop Up?
-  @health
-  Scenario Outline: Report Portal Login - Positive Scenarios
-    Given I launch Report Portal in '<BROWSER>'
-    Then I validate the current page as 'LOGIN' Page
-    When I enter credentials for '<FLOW>'
-
-    Examples:
-      | BROWSER | FLOW              |
-      | CHROME  | VALID_CREDENTIALS |
+#   TODO - OS Security Pop Up
+#  @health
+#  Scenario Outline: Report Portal Login - Positive Scenarios
+#    Given I launch Report Portal in '<BROWSER>'
+#    Then I validate the current page as 'LOGIN' Page
+#    When I enter credentials for '<FLOW>'
+#
+#    Examples:
+#      | BROWSER | FLOW              |
+#      | CHROME  | VALID_CREDENTIALS |

@@ -43,7 +43,9 @@ tasks.named('test') {
         javaexec {
             main = "io.cucumber.core.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'html:reports/test-report.html', '--plugin', 'pretty', '--glue', 'reportportal', 'src/test/resources']
+            args = ['--plugin', 'html:reports/test-report.html',
+                    '--plugin', 'pretty',
+                    '--glue', 'reportportal', 'src/test/resources']
         }
     }
     testLogging {

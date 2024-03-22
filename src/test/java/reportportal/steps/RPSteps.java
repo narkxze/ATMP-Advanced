@@ -41,7 +41,6 @@ public class RPSteps {
     public void iEnterCredentials(String expectedFlow) throws InterruptedException {
         Consumer<LoginPage> loginConsumer = LoginEnum.valueOf(expectedFlow).getLoginConsumer();
         LoginConsumer.performLogin(loginConsumer, loginPage);
-      //  Thread.sleep(20000);
     }
 
 

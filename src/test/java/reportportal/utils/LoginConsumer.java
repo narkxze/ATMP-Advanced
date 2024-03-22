@@ -12,8 +12,8 @@ public class LoginConsumer {
     private static final Consumer<LoginPage> INVALID_PASSWORD = password -> password.enterPassword("InvalidPassword");
     private static final Consumer<LoginPage> LOGIN = LoginPage::clickLogin;
     private static final Consumer<LoginPage> LOGIN_EPAM = LoginPage::clickLoginWithEPAM;
-    private static final Consumer<LoginPage> USERNAME_EPAM = username -> username.enterEPAMUsername("nareshkarthi_sakthivel@epam.com");
-    private static final Consumer<LoginPage> PASSWORD_EPAM = password -> password.enterEPAMPassword("EPFeb@2024");
+    private static final Consumer<LoginPage> USERNAME_EPAM = username -> username.enterEPAMUsername("XYZ@epam.com");
+    private static final Consumer<LoginPage> PASSWORD_EPAM = password -> password.enterEPAMPassword("---XYZ----");
     private static final Consumer<LoginPage> NEXT = LoginPage::clickNext;
 
     public static final Consumer<LoginPage> SUCCESSFUL_LOGIN = LOGIN_EPAM.andThen(USERNAME_EPAM).andThen(NEXT).andThen(PASSWORD_EPAM).andThen(NEXT);
