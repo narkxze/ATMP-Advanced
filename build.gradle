@@ -3,7 +3,7 @@ buildscript {
         selenium = '4.18.1'
         testng = '7.9.0'
         cucumber = '7.15.0'
-        lombok = '1.18.30'
+        log4j = '2.23.1'
     }
 }
 plugins {
@@ -23,8 +23,10 @@ dependencies {
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: "$cucumber"
     testImplementation group: 'io.cucumber', name: 'cucumber-core', version: "$cucumber"
     testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: "$cucumber"
-    testImplementation group: 'org.projectlombok', name: 'lombok', version: "$lombok"
-
+    testImplementation group: 'io.cucumber', name: 'cucumber-html', version: '0.2.7'
+    testImplementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: "$log4j"
+    testImplementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$log4j"
+    testImplementation group: 'net.masterthought', name: 'cucumber-reporting', version: '5.8.0'
 }
 
 java {
@@ -37,13 +39,14 @@ configurations {
     }
 }
 
-tasks.named('test') {
+tasks.register('allTests') {
     dependsOn assemble, compileTestJava
     doLast {
         javaexec {
             main = "io.cucumber.core.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
             args = ['--plugin', 'html:reports/test-report.html',
+                    '--plugin', 'json:reports/cucumber.json',
                     '--plugin', 'pretty',
                     '--glue', 'reportportal', 'src/test/resources']
         }

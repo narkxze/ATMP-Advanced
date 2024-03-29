@@ -1,51 +1,70 @@
 package reportportal.steps;
 
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.But;
-import lombok.extern.java.Log;
+import io.cucumber.java.en.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import reportportal.drivers.BrowserFactory;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
+import reportportal.containers.NavigationContainer;
 import reportportal.enums.LoginEnum;
+import reportportal.enums.NavigationEnum;
 import reportportal.pages.BasePage;
+import reportportal.pages.DashboardPage;
 import reportportal.pages.LoginPage;
-import reportportal.pages.PageFactory;
-import reportportal.utils.LoginConsumer;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+import static org.testng.AssertJUnit.assertTrue;
+import static reportportal.drivers.BrowserFactory.getDriverInstance;
+import static reportportal.pages.PageFactory.getPageInstance;
+import static reportportal.utils.LoginConsumer.performLogin;
+import static reportportal.utils.NavigationPredicates.performNavValidations;
+
 
 public class RPSteps {
 
     WebDriver driver;
     LoginPage loginPage;
+    DashboardPage dashboardPage;
+    NavigationContainer navigationContainer;
+
+    public static final Logger logger = LogManager.getLogger();
+
 
     public RPSteps() {
         loginPage = new LoginPage();
+        dashboardPage = new DashboardPage();
+        navigationContainer = new NavigationContainer();
+
     }
 
     @Given("I launch Report Portal in {string}")
     public void launchReportPortal(String browser) {
-        driver = BrowserFactory.getDriverInstance(browser);
-        driver.get("https://rp.epam.com");
+        driver = getDriverInstance(browser);
+        driver.get(System.getenv("LOCAL_HOST_URL"));
+        logger.info(System.getenv("LOCAL_HOST_URL") + " is Launched");
     }
 
     @When("I validate the current page as {string} Page")
     public void validateLoginPage(String pageName) {
-        BasePage page = PageFactory.getPageInstance(pageName);
-        Assert.assertTrue(page.verify());
+        BasePage page = getPageInstance(pageName);
+        assertTrue(page.verify());
     }
 
     @And("I enter credentials for {string}")
-    public void iEnterCredentials(String expectedFlow) throws InterruptedException {
+    public void iEnterCredentials(String expectedFlow) {
         Consumer<LoginPage> loginConsumer = LoginEnum.valueOf(expectedFlow).getLoginConsumer();
-        LoginConsumer.performLogin(loginConsumer, loginPage);
+        performLogin(loginConsumer, loginPage);
     }
-
 
     @But("The Login Authorization error {string} is displayed")
     public void theLoginAuthorizationErrorIsDisplayed(String errorMsg) {
-        Assert.assertTrue(loginPage.getLoginErrorMessage(errorMsg));
+        assertTrue(loginPage.getLoginErrorMessage(errorMsg));
+    }
+
+    @And("I validate {string} elements from Navigation Bar")
+    public void iValidateNavContainerElements(String pane) {
+        Predicate<NavigationContainer> navPredicates = NavigationEnum.valueOf(pane).getNavPredicates();
+        performNavValidations(navPredicates, navigationContainer);
     }
 }

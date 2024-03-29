@@ -1,10 +1,12 @@
 package reportportal.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 
 public class LoginPage extends BasePage {
@@ -18,6 +20,8 @@ public class LoginPage extends BasePage {
     private final By nextBtn = By.cssSelector("input[type='submit']");
     private final By passwordEPAMTextBox = By.cssSelector("input[type='password']");
     private final By usePIN = By.xpath("//a[contains(@id,'PWD_Switch')]");
+    private final By forgotPass = By.xpath("//a[contains(@class,'forgot-pass')]");
+
 
     public static LoginPage getInstance() {
         if (INSTANCE == null) {
@@ -28,6 +32,8 @@ public class LoginPage extends BasePage {
 
     @Override
     public boolean verify() {
+        logger.info("Current Opened Page Title:"+getDriver().getTitle());
+        logger.info("Current Opened Page URL: "+getDriver().getCurrentUrl());
         return getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(loginBtn)).isDisplayed();
     }
 
@@ -49,7 +55,7 @@ public class LoginPage extends BasePage {
     }
 
     public void enterEPAMUsername(String username) {
-       getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(usernameEPAMTextBox)).sendKeys(username);
+        getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(usernameEPAMTextBox)).sendKeys(username);
     }
 
     public void enterEPAMPassword(String password) {
@@ -63,6 +69,7 @@ public class LoginPage extends BasePage {
     public void usePinHyperLink() {
         getDriver().findElement(usePIN).click();
     }
+
     public Boolean getLoginErrorMessage(String errorMsg) {
         return getExplicitWait().until(ExpectedConditions.textToBePresentInElementLocated(loginErrLabel, errorMsg));
     }
