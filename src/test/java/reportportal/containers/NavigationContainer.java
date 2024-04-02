@@ -1,15 +1,9 @@
 package reportportal.containers;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import reportportal.pages.BasePage;
 
-import static reportportal.pages.PageFactory.getPageInstance;
-
 public class NavigationContainer extends BasePage {
-
-    private static ThreadLocal<NavigationContainer> INSTANCE = null;
-
     private final By projectSelector = By.xpath("//aside//div[contains(@class,'main-block')]/div");
     private final By dashBoardSelector = By.xpath("//aside//div[contains(@class,'sidebar-btn')]//a[contains(@href,'dashboard')]");
     private final By launchesSelector = By.xpath("//aside//div[contains(@class,'sidebar-btn')]//a[contains(@href,'launches')]");
@@ -25,62 +19,51 @@ public class NavigationContainer extends BasePage {
     private final By successfulSignInToast = By.xpath("//p[text()='Signed in successfully']");
 
 
-    public static NavigationContainer getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new ThreadLocal<>();
-        }
-        return INSTANCE.get();
+    public boolean isProjectDetailDisplayed() {
+        click(projectSelector);
+        return isDisplayed(projectNamesBlock);
     }
 
-    public boolean validateProjectSelector() {
-        getDriver().findElement(projectSelector).click();
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(projectNamesBlock)).isDisplayed();
+    public boolean isNavigatedToDashboard() {
+        click(dashBoardSelector);
+        return getDriver().getCurrentUrl().contains("dashboard");
     }
 
-    public boolean validateDashBoardSelector() {
-        getDriver().findElement(dashBoardSelector).click();
-        return getPageInstance("DASHBOARD").verify();
+    public boolean isNavigatedToLauncher() {
+        click(launchesSelector);
+        return getDriver().getCurrentUrl().contains("launches");
     }
 
-    public boolean validateLaunchesSelector() {
-        getDriver().findElement(launchesSelector).click();
-        return getPageInstance("LAUNCHES").verify();
-    }
-
-
+    //
     @Override
     public boolean verify() {
         return true;
     }
 
-    public boolean validateFiltersSelector() {
-        getDriver().findElement(filtersSelector).click();
-        return getPageInstance("FILTERS").verify();
+    public boolean isNavigatedToFilter() {
+        click(filtersSelector);
+        return getDriver().getCurrentUrl().contains("filters");
     }
 
-    public boolean validateDebugSelector() {
-        getDriver().findElement(debugSelector).click();
-        return getPageInstance("DEBUG").verify();
+    public boolean isNavigatedToUserDebug() {
+        click(debugSelector);
+        return getDriver().getCurrentUrl().contains("userdebug");
     }
 
-    public boolean validateMemberSelector() {
-        getDriver().findElement(memberSelector).click();
-        return getPageInstance("MEMBERS").verify();
+    public boolean isNavigatedToMembers() {
+        click(memberSelector);
+        return getDriver().getCurrentUrl().contains("members");
     }
 
-    public boolean validateSettingSelector() {
-        getDriver().findElement(settingsSelector).click();
-        return getPageInstance("SETTINGS").verify();
+    public boolean isNavigatedToSettings() {
+        click(settingsSelector);
+        return getDriver().getCurrentUrl().contains("settings");
     }
 
-    public boolean validateSupportBlock() {
-        getDriver().findElement(supportBlock).click();
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(supportInstructions)).isDisplayed();
-    }
-
-    public boolean validateUserBlock() {
-        getExplicitWait().until(ExpectedConditions.invisibilityOfElementLocated(successfulSignInToast));
-        getExplicitWait().until(ExpectedConditions.elementToBeClickable(userBlock)).click();
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(logoutUser)).isDisplayed();
+    public boolean isUserBlockDisplayed() {
+        waitUntilInvisible(successfulSignInToast);
+        click(userBlock);
+        return isDisplayed(logoutUser);
     }
 }
+//}

@@ -10,7 +10,9 @@ public enum NavigationEnum {
 
     TOP_PANE(TOP_PANE_VALIDATION),
     SIDE_PANE(SIDE_PANE_VALIDATION),
-    BOTTOM_PANE(BOTTOM_PANE_VALIDATION);
+    BOTTOM_PANE(BOTTOM_PANE_VALIDATION),
+    FILTERS(FILTERS_SELECTOR),
+    LAUNCHES(LAUNCHES_SELECTOR);
 
 
     private final Predicate<NavigationContainer> navPredicates;
