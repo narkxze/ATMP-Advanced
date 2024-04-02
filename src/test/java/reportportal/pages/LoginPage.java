@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 
 public class LoginPage extends BasePage {
-    private static ThreadLocal<LoginPage> INSTANCE = null;
+    private static ThreadLocal<LoginPage> INSTANCE = new ThreadLocal<>();
     private final By usernameTextBox = By.cssSelector("input[name='login']");
     private final By passwordTextBox = By.cssSelector("input[name='password']");
     private final By loginBtn = By.cssSelector("button[type='submit']");
@@ -24,8 +24,9 @@ public class LoginPage extends BasePage {
 
 
     public static LoginPage getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new ThreadLocal<>();
+        if (INSTANCE.get()==null) {
+//            INSTANCE = new ThreadLocal<>();
+            INSTANCE.set(new LoginPage());
         }
         return INSTANCE.get();
     }
@@ -34,19 +35,22 @@ public class LoginPage extends BasePage {
     public boolean verify() {
         logger.info("Current Opened Page Title:"+getDriver().getTitle());
         logger.info("Current Opened Page URL: "+getDriver().getCurrentUrl());
-        return getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(loginBtn)).isDisplayed();
+        return isDisplayed(loginBtn);
     }
 
     public void enterUsername(String username) {
-        getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(usernameTextBox)).sendKeys(username);
+        enterValue(usernameTextBox,username);
+       // getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(usernameTextBox)).sendKeys(username);
     }
 
     public void enterPassword(String password) {
-        getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(passwordTextBox)).sendKeys(password);
+        enterValue(passwordTextBox,password);
+     //   getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(passwordTextBox)).sendKeys(password);
     }
 
     public void clickLogin() {
-        getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(loginBtn)).click();
+        click(loginBtn);
+        //getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(loginBtn)).click();
     }
 
     public void clickLoginWithEPAM() {

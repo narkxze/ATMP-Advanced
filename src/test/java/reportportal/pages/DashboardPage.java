@@ -13,12 +13,14 @@ public class DashboardPage extends BasePage {
     public static DashboardPage getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ThreadLocal<>();
+            INSTANCE.set(new DashboardPage());
         }
         return INSTANCE.get();
     }
 
     @Override
     public boolean verify() {
+        isDisplayed(dashBoardTitle);
         return getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(dashBoardTitle)).isDisplayed();
     }
 }

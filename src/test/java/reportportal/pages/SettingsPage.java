@@ -11,12 +11,13 @@ public class SettingsPage extends BasePage {
     public static SettingsPage getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ThreadLocal<>();
+            INSTANCE.set(new SettingsPage());
         }
         return INSTANCE.get();
     }
 
     @Override
     public boolean verify() {
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(settingsLayout)).isDisplayed();
+        return isDisplayed(settingsLayout);
     }
 }

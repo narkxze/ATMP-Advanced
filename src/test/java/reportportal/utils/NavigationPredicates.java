@@ -21,7 +21,8 @@ public class NavigationPredicates {
                     .and(MEMBERS_SELECTOR).and(SETTINGS_SELECTOR);
 
     public static final Predicate<NavigationContainer> BOTTOM_PANE_VALIDATION =
-            SUPPORT_BLOCK.and(USER_BLOCK);
+//            SUPPORT_BLOCK.and(
+                    USER_BLOCK;
 
     public static void performNavValidations(Predicate<NavigationContainer> navPredicate, NavigationContainer navigationContainer) {
         navPredicate.test(navigationContainer);

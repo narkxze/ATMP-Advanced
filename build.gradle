@@ -1,23 +1,32 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 buildscript {
     ext {
+        apache = '2.15.1'
+        apachexml = '5.2.5'
         selenium = '4.18.1'
         testng = '7.9.0'
         cucumber = '7.15.0'
         log4j = '2.23.1'
+        allure = '2.26.0'
+        aspectj = '1.9.22'
     }
 }
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group = 'com.epam'
 version = '1.0-SNAPSHOT'
 
 repositories {
+    gradlePluginPortal()
     mavenCentral()
 }
 
 dependencies {
+    runtimeOnly group: 'org.aspectj', name: 'aspectjweaver', version: "$aspectj"
+    implementation group: 'commons-io', name: 'commons-io', version: "$apache"
     testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: "$selenium"
     testImplementation group: 'org.testng', name: 'testng', version: "$testng"
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: "$cucumber"
@@ -26,7 +35,10 @@ dependencies {
     testImplementation group: 'io.cucumber', name: 'cucumber-html', version: '0.2.7'
     testImplementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: "$log4j"
     testImplementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$log4j"
-    testImplementation group: 'net.masterthought', name: 'cucumber-reporting', version: '5.8.0'
+    testImplementation platform("io.qameta.allure:allure-bom:$allure")
+    testImplementation group: 'io.qameta.allure', name: 'allure-testng', version: "$allure"
+    implementation group: 'io.qameta.allure', name: 'allure-cucumber7-jvm', version: "$allure"
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: "$apachexml"
 }
 
 java {
@@ -38,20 +50,16 @@ configurations {
         extendsFrom testImplementation
     }
 }
-
-tasks.register('allTests') {
-    dependsOn assemble, compileTestJava
-    doLast {
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'html:reports/test-report.html',
-                    '--plugin', 'json:reports/cucumber.json',
-                    '--plugin', 'pretty',
-                    '--glue', 'reportportal', 'src/test/resources']
-        }
+test {
+    useTestNG {
+        setParallel("methods")
+        setThreadCount(1)
     }
-    testLogging {
-        showStandardStreams = true
-    }
+    systemProperties System.getProperties()
+    systemProperty 'cucumber.filter.tags', System.properties['cucumber.filter.tags']
+    scanForTestClasses = false
+//    jvmArgs(["-Ddataproviderthreadcount=$threads"])
+    testLogging.showStandardStreams(false)
+    ignoreFailures = false
+    failFast = false
 }

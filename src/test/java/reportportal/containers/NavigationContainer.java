@@ -28,22 +28,25 @@ public class NavigationContainer extends BasePage {
     public static NavigationContainer getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ThreadLocal<>();
+            INSTANCE.set(new NavigationContainer());
         }
         return INSTANCE.get();
     }
 
     public boolean validateProjectSelector() {
-        getDriver().findElement(projectSelector).click();
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(projectNamesBlock)).isDisplayed();
+        click(projectSelector);
+        return isDisplayed(projectNamesBlock);
     }
 
     public boolean validateDashBoardSelector() {
-        getDriver().findElement(dashBoardSelector).click();
+//        getDriver().findElement(dashBoardSelector).click();
+        click(dashBoardSelector);
         return getPageInstance("DASHBOARD").verify();
     }
 
     public boolean validateLaunchesSelector() {
-        getDriver().findElement(launchesSelector).click();
+//        getDriver().findElement(launchesSelector).click();
+        click(launchesSelector);
         return getPageInstance("LAUNCHES").verify();
     }
 
@@ -54,33 +57,41 @@ public class NavigationContainer extends BasePage {
     }
 
     public boolean validateFiltersSelector() {
-        getDriver().findElement(filtersSelector).click();
+//        getDriver().findElement(filtersSelector).click();
+        click(filtersSelector);
         return getPageInstance("FILTERS").verify();
     }
 
     public boolean validateDebugSelector() {
-        getDriver().findElement(debugSelector).click();
+//        getDriver().findElement(debugSelector).click();
+        click(debugSelector);
         return getPageInstance("DEBUG").verify();
     }
 
     public boolean validateMemberSelector() {
-        getDriver().findElement(memberSelector).click();
+//        getDriver().findElement(memberSelector).click();
+        click(memberSelector);
         return getPageInstance("MEMBERS").verify();
     }
 
     public boolean validateSettingSelector() {
-        getDriver().findElement(settingsSelector).click();
+//        getDriver().findElement(settingsSelector).click();
+        click(settingsSelector);
         return getPageInstance("SETTINGS").verify();
     }
 
     public boolean validateSupportBlock() {
-        getDriver().findElement(supportBlock).click();
+//        getDriver().findElement(supportBlock).click();
+        click(supportBlock);
         return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(supportInstructions)).isDisplayed();
     }
 
     public boolean validateUserBlock() {
-        getExplicitWait().until(ExpectedConditions.invisibilityOfElementLocated(successfulSignInToast));
-        getExplicitWait().until(ExpectedConditions.elementToBeClickable(userBlock)).click();
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(logoutUser)).isDisplayed();
+        waitUntilClickable(successfulSignInToast).click();
+        // getExplicitWait().until(ExpectedConditions.invisibilityOfElementLocated(successfulSignInToast));
+//        getExplicitWait().until(ExpectedConditions.elementToBeClickable(userBlock)).click();
+        click(userBlock);
+        return isDisplayed(logoutUser);
+        // return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(logoutUser)).isDisplayed();
     }
 }

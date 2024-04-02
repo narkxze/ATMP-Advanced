@@ -10,12 +10,13 @@ public class MembersPage extends BasePage {
     public static MembersPage getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ThreadLocal<>();
+            INSTANCE.set(new MembersPage());
         }
         return INSTANCE.get();
     }
 
     @Override
     public boolean verify() {
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(membersToolBar)).isDisplayed();
+       return isDisplayed(membersToolBar);
     }
 }

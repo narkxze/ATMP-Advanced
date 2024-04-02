@@ -10,6 +10,7 @@ import reportportal.enums.NavigationEnum;
 import reportportal.pages.BasePage;
 import reportportal.pages.DashboardPage;
 import reportportal.pages.LoginPage;
+import reportportal.pages.PageFactory;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -31,16 +32,16 @@ public class RPSteps {
     public static final Logger logger = LogManager.getLogger();
 
 
-    public RPSteps() {
-        loginPage = new LoginPage();
-        dashboardPage = new DashboardPage();
-        navigationContainer = new NavigationContainer();
+//    public RPSteps() {
+//        loginPage = (LoginPage) PageFactory.getPageInstance("LOGIN");
+//        dashboardPage = (DashboardPage) getPageInstance("DASHBOARD");
+//        navigationContainer = (NavigationContainer) getPageInstance("NAVIGATION");
+//
+//    }
 
-    }
-
-    @Given("I launch Report Portal in {string}")
-    public void launchReportPortal(String browser) {
-        driver = getDriverInstance(browser);
+    @Given("I launch Report Portal")
+    public void launchReportPortal() {
+        driver = getDriverInstance();
         driver.get(System.getenv("LOCAL_HOST_URL"));
         logger.info(System.getenv("LOCAL_HOST_URL") + " is Launched");
     }
@@ -54,7 +55,7 @@ public class RPSteps {
     @And("I enter credentials for {string}")
     public void iEnterCredentials(String expectedFlow) {
         Consumer<LoginPage> loginConsumer = LoginEnum.valueOf(expectedFlow).getLoginConsumer();
-        performLogin(loginConsumer, loginPage);
+        performLogin(loginConsumer, (LoginPage) getPageInstance("LOGIN"));
     }
 
     @But("The Login Authorization error {string} is displayed")

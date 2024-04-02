@@ -11,12 +11,13 @@ public class DebugPage extends BasePage {
     public static DebugPage getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new ThreadLocal<>();
+            INSTANCE.set(new DebugPage());
         }
         return INSTANCE.get();
     }
 
     @Override
     public boolean verify() {
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(refinePanel)).isDisplayed();
+        return isDisplayed(refinePanel);
     }
 }
