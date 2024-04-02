@@ -2,13 +2,10 @@ package reportportal.pages;
 
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import reportportal.containers.NavigationContainer;
-import reportportal.utils.NavigationPredicates;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import static reportportal.utils.NavigationPredicates.FILTERS_SELECTOR;
 import static reportportal.utils.NavigationPredicates.performNavValidations;

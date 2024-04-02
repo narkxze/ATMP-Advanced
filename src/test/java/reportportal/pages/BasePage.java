@@ -20,9 +20,7 @@ public abstract class BasePage {
 
     public static final Logger logger = LogManager.getLogger();
     private static String DRIVER_SESSION = null;
-
     WebDriver driver;
-
     WebDriverWait wait;
 
     public WebDriverWait getExplicitWait() {

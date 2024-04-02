@@ -14,7 +14,6 @@ public class FiltersPage extends BasePage {
     private final By deleteFilterBtn = By.xpath("//button[text()='Delete']");
     private final By deleteSuccessToast = By.xpath("//p[text()='Filter has been deleted!']");
 
-
     @Override
     public boolean verify() {
         return waitUntilVisible(filterToolBar);
