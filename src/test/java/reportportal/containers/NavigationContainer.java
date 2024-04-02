@@ -1,15 +1,9 @@
 package reportportal.containers;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import reportportal.pages.BasePage;
 
-import static reportportal.pages.PageFactory.getPageInstance;
-
 public class NavigationContainer extends BasePage {
-
-    private static ThreadLocal<NavigationContainer> INSTANCE = null;
-
     private final By projectSelector = By.xpath("//aside//div[contains(@class,'main-block')]/div");
     private final By dashBoardSelector = By.xpath("//aside//div[contains(@class,'sidebar-btn')]//a[contains(@href,'dashboard')]");
     private final By launchesSelector = By.xpath("//aside//div[contains(@class,'sidebar-btn')]//a[contains(@href,'launches')]");
@@ -25,73 +19,51 @@ public class NavigationContainer extends BasePage {
     private final By successfulSignInToast = By.xpath("//p[text()='Signed in successfully']");
 
 
-    public static NavigationContainer getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new ThreadLocal<>();
-            INSTANCE.set(new NavigationContainer());
-        }
-        return INSTANCE.get();
-    }
-
-    public boolean validateProjectSelector() {
+    public boolean isProjectDetailDisplayed() {
         click(projectSelector);
         return isDisplayed(projectNamesBlock);
     }
 
-    public boolean validateDashBoardSelector() {
-//        getDriver().findElement(dashBoardSelector).click();
+    public boolean isNavigatedToDashboard() {
         click(dashBoardSelector);
-        return getPageInstance("DASHBOARD").verify();
+        return getDriver().getCurrentUrl().contains("dashboard");
     }
 
-    public boolean validateLaunchesSelector() {
-//        getDriver().findElement(launchesSelector).click();
+    public boolean isNavigatedToLauncher() {
         click(launchesSelector);
-        return getPageInstance("LAUNCHES").verify();
+        return getDriver().getCurrentUrl().contains("launches");
     }
 
-
+    //
     @Override
     public boolean verify() {
         return true;
     }
 
-    public boolean validateFiltersSelector() {
-//        getDriver().findElement(filtersSelector).click();
+    public boolean isNavigatedToFilter() {
         click(filtersSelector);
-        return getPageInstance("FILTERS").verify();
+        return getDriver().getCurrentUrl().contains("filters");
     }
 
-    public boolean validateDebugSelector() {
-//        getDriver().findElement(debugSelector).click();
+    public boolean isNavigatedToUserDebug() {
         click(debugSelector);
-        return getPageInstance("DEBUG").verify();
+        return getDriver().getCurrentUrl().contains("userdebug");
     }
 
-    public boolean validateMemberSelector() {
-//        getDriver().findElement(memberSelector).click();
+    public boolean isNavigatedToMembers() {
         click(memberSelector);
-        return getPageInstance("MEMBERS").verify();
+        return getDriver().getCurrentUrl().contains("members");
     }
 
-    public boolean validateSettingSelector() {
-//        getDriver().findElement(settingsSelector).click();
+    public boolean isNavigatedToSettings() {
         click(settingsSelector);
-        return getPageInstance("SETTINGS").verify();
+        return getDriver().getCurrentUrl().contains("settings");
     }
 
-    public boolean validateSupportBlock() {
-//        getDriver().findElement(supportBlock).click();
-        click(supportBlock);
-        return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(supportInstructions)).isDisplayed();
-    }
-
-    public boolean validateUserBlock() {
-        waitUntilClickable(successfulSignInToast).click();
-        // getExplicitWait().until(ExpectedConditions.invisibilityOfElementLocated(successfulSignInToast));
-//        getExplicitWait().until(ExpectedConditions.elementToBeClickable(userBlock)).click();
+    public boolean isUserBlockDisplayed() {
+        waitUntilInvisible(successfulSignInToast);
         click(userBlock);
         return isDisplayed(logoutUser);
-        // return getExplicitWait().until(ExpectedConditions.presenceOfElementLocated(logoutUser)).isDisplayed();
     }
 }
+//}

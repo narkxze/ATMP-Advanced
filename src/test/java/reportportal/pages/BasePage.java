@@ -49,8 +49,16 @@ public abstract class BasePage {
         return getExplicitWait().until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    public void enterValue(By locator, String value) {
-        getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(value);
+    public void waitUntilInvisible(By locator) {
+        getExplicitWait().until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
+    public boolean waitUntilVisible(By locator) {
+        return getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(locator)).isDisplayed();
+    }
+
+    public void enterValue(By locator, String value) {
+        getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(locator)).clear();
+        getExplicitWait().until(ExpectedConditions.visibilityOfElementLocated(locator)).sendKeys(value);
+    }
 }
