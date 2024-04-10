@@ -56,4 +56,8 @@ public class BrowserFactory {
         driver.remove();
     }
 
+    public static void launchUrl(String url) {
+        getDriverInstance().get(url);
+    }
+
 }
