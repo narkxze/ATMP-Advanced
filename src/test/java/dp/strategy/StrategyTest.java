@@ -10,10 +10,8 @@ public class StrategyTest {
         cart.addItem(item1);
         cart.addItem(item2);
 
-        //pay by upi
         cart.pay(new UPI("myemail@example.com", "mypwd"));
 
-        //pay by credit card
         cart.pay(new CreditCard("NK", "1234567890"));
     }
 }
