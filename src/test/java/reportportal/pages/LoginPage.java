@@ -3,13 +3,22 @@ package reportportal.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import reportportal.annotations.Element;
+import reportportal.annotations.PageName;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
+import static reportportal.pages.LoginPage.Controls.*;
 
-
+@PageName("Login")
 public class LoginPage extends BasePage {
+    @Element(USERNAME)
+    private String usernameBox = "//input[@name='login']";
+
+    @Element(PASSWORD)
+    private String passwordBpx = "//input[@name='password']";
+
+    @Element(LOGIN)
+    private String login = "//button[@type='submit']";
+
     private final By usernameTextBox = By.cssSelector("input[name='login']");
     private final By passwordTextBox = By.cssSelector("input[name='password']");
     private final By loginBtn = By.cssSelector("button[type='submit']");
@@ -17,8 +26,6 @@ public class LoginPage extends BasePage {
 
     @Override
     public boolean verify() {
-        logger.info("Current Opened Page Title:" + getDriver().getTitle());
-        logger.info("Current Opened Page URL: " + getDriver().getCurrentUrl());
         return isDisplayed(loginBtn);
     }
 
@@ -36,6 +43,12 @@ public class LoginPage extends BasePage {
 
     public Boolean getLoginErrorMessage(String errorMsg) {
         return getExplicitWait().until(ExpectedConditions.textToBePresentInElementLocated(loginErrLabel, errorMsg));
+    }
+
+    public static class Controls {
+        public final static String USERNAME = "Username";
+        public final static String PASSWORD = "Password";
+        public final static String LOGIN = "Login";
     }
 
 }

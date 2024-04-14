@@ -2,8 +2,10 @@ package reportportal.containers;
 
 import org.openqa.selenium.By;
 import reportportal.pages.BasePage;
+import reportportal.pages.PageManager;
 
 public class NavigationContainer extends BasePage {
+    PageManager pageManager;
     private final By projectSelector = By.xpath("//aside//div[contains(@class,'main-block')]/div");
     private final By dashBoardSelector = By.xpath("//aside//div[contains(@class,'sidebar-btn')]//a[contains(@href,'dashboard')]");
     private final By launchesSelector = By.xpath("//aside//div[contains(@class,'sidebar-btn')]//a[contains(@href,'launches')]");
@@ -26,12 +28,12 @@ public class NavigationContainer extends BasePage {
 
     public boolean isNavigatedToDashboard() {
         click(dashBoardSelector);
-        return getDriver().getCurrentUrl().contains("dashboard");
+        return pageManager.getDashboardPage().verify();
     }
 
     public boolean isNavigatedToLauncher() {
         click(launchesSelector);
-        return getDriver().getCurrentUrl().contains("launches");
+        return pageManager.getLaunchesPage().verify();
     }
 
     //
@@ -42,22 +44,22 @@ public class NavigationContainer extends BasePage {
 
     public boolean isNavigatedToFilter() {
         click(filtersSelector);
-        return getDriver().getCurrentUrl().contains("filters");
+        return pageManager.getFiltersPage().verify();
     }
 
     public boolean isNavigatedToUserDebug() {
         click(debugSelector);
-        return getDriver().getCurrentUrl().contains("userdebug");
+        return pageManager.getUserDebugPage().verify();
     }
 
     public boolean isNavigatedToMembers() {
         click(memberSelector);
-        return getDriver().getCurrentUrl().contains("members");
+        return pageManager.getMembersPage().verify();
     }
 
     public boolean isNavigatedToSettings() {
         click(settingsSelector);
-        return getDriver().getCurrentUrl().contains("settings");
+        return pageManager.getSettingsPage().verify();
     }
 
     public boolean isUserBlockDisplayed() {
