@@ -2,10 +2,11 @@ package reportportal.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import reportportal.annotations.PageName;
 
 import java.util.List;
 import java.util.Map;
-
+@PageName("Filters")
 public class FiltersPage extends BasePage {
     private final static By filterToolBar = By.xpath("//div[contains(@class,'filterPageToolbar__filter-search')]");
     private final By addFiltersBtn = By.xpath("//button//span[text()='Add Filter']");

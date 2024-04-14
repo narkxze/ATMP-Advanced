@@ -10,6 +10,7 @@ public class PageManager {
     LaunchesPage launchesPage;
     SettingsPage settingsPage;
     NavigationContainer navigationContainer;
+    DebugPage debugPage;
 
     public LoginPage getLoginPage() {
         if (loginPage == null)
@@ -53,4 +54,9 @@ public class PageManager {
         return navigationContainer;
     }
 
+    public BasePage getUserDebugPage() {
+        if (debugPage == null)
+            debugPage = new DebugPage();
+        return debugPage;
+    }
 }

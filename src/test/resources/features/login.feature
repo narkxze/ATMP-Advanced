@@ -21,3 +21,14 @@ Feature: Login Feature
     Given I launch Report Portal
     When I enter 'Valid_Credentials' for login
     Then I should be in 'Dashboard' Page
+
+  @health1
+  Scenario: Report Portal Login - Data Table
+    Given I launch Report Portal
+    And I should be in 'Login' Page
+    And I fill the following fields:
+      | field    | value           |
+      | Username | envKey_username |
+      | Password | envKey_password |
+    And I click on 'Login' button
+    Then I should be in 'Dashboard' Page

@@ -8,11 +8,16 @@ buildscript {
         log4j = '2.23.1'
         allure = '2.26.0'
         aspectj = '1.9.22'
+        reflections = '0.10.2'
+        lombok = '1.18.32'
+
+
     }
 }
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.11.2'
+//    id "io.freefair.lombok" version "8.6"
 }
 
 group = 'com.epam'
@@ -39,7 +44,11 @@ dependencies {
     implementation group: 'io.qameta.allure', name: 'allure-cucumber7-jvm', version: "$allure"
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: "$apachexml"
     testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: "$cucumber"
-    testImplementation group: 'io.qameta.allure', name: 'allure-junit5', version: "$allure"
+    implementation group: 'org.reflections', name: 'reflections', version: "$reflections"
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: "$lombok"
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "$lombok"
+    testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: "$cucumber"
+
 }
 
 java {
