@@ -33,7 +33,6 @@ public class StepDefinitions {
 
     @Given("I launch Report Portal")
     public void launchReportPortal() {
-        System.out.println("hello");
         BrowserFactory.launchUrl(System.getenv("LOCAL_HOST_URL"));
       //  launchUrl("http://localhost:8080/ui/#login");
     }
