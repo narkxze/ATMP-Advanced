@@ -10,6 +10,8 @@ buildscript {
         aspectj = '1.9.22'
         reflections = '0.10.2'
         lombok = '1.18.32'
+        restassured = '5.4.0'
+        jacksondatabind='2.17.0'
 
 
     }
@@ -48,7 +50,9 @@ dependencies {
     testCompileOnly group: 'org.projectlombok', name: 'lombok', version: "$lombok"
     testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "$lombok"
     testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: "$cucumber"
-
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: "$restassured"
+    implementation group: 'io.qameta.allure', name: 'allure-rest-assured', version: "$allure"
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksondatabind"
 }
 
 java {
