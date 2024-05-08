@@ -16,10 +16,12 @@ import static reportportal.drivers.BrowserFactory.*;
 public class Hooks {
 
     @After
-    public void tearDown() throws IOException {
-        TakesScreenshot ts = (TakesScreenshot) getActiveDriver();
-        File screenshot = ts.getScreenshotAs(OutputType.FILE);
-        Allure.addAttachment("Test Evidence", FileUtils.openInputStream(screenshot));
-        quitDriver();
+    public void tearDown(Scenario scenario) throws IOException {
+        if (!scenario.getSourceTagNames().contains("@api")) {
+            TakesScreenshot ts = (TakesScreenshot) getActiveDriver();
+            File screenshot = ts.getScreenshotAs(OutputType.FILE);
+            Allure.addAttachment("Test Evidence", FileUtils.openInputStream(screenshot));
+            quitDriver();
+        }
     }
 }
