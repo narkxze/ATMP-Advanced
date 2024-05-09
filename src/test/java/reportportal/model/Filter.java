@@ -13,19 +13,4 @@ public class Filter {
     private String name;
     private List<Order> orders;
     private String type;
-
-    @Data
-    @Builder
-    public static class Condition {
-        private String condition;
-        private String filteringField;
-        private String value;
-    }
-
-    @Data
-    @Builder
-    public static class Order {
-        private boolean isAsc;
-        private String sortingColumn;
-    }
 }

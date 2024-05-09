@@ -8,7 +8,9 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.asserts.SoftAssert;
+import reportportal.model.Condition;
 import reportportal.model.Filter;
+import reportportal.model.Order;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -71,11 +73,11 @@ public class APISteps extends BaseSteps {
                 .name(request.get("name"))
                 .description(request.get("description"))
                 .type(request.get("type"))
-                .conditions(Collections.singletonList(Filter.Condition.builder().condition(request.get("condition"))
+                .conditions(Collections.singletonList(Condition.builder().condition(request.get("condition"))
                         .filteringField(request.get("filteringField"))
                         .value(request.get("value"))
                         .build()))
-                .orders(Collections.singletonList(Filter.Order.builder().isAsc(Boolean.parseBoolean(request.get("isAsc")))
+                .orders(Collections.singletonList(Order.builder().isAsc(Boolean.parseBoolean(request.get("isAsc")))
                         .sortingColumn(request.get("sortingColumn"))
                         .build()))
                 .build();
