@@ -1,5 +1,5 @@
 @reportportal @severity=normal
-Feature: Navigation Feature
+Feature: Report Portal- Navigations
   As an user
   I successfully navigate to all possible pages
   from the navigation pane

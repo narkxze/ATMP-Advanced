@@ -2,6 +2,7 @@ package reportportal.pages;
 
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.openqa.selenium.By;
+import reportportal.annotations.Element;
 import reportportal.annotations.PageName;
 import reportportal.containers.NavigationContainer;
 
@@ -13,6 +14,15 @@ import static reportportal.utils.NavigationPredicates.performNavValidations;
 
 @PageName("Launches")
 public class LaunchesPage extends BasePage {
+    private static final String PAGINATION = "Pagination";
+    private static final String FILTER_LIST = "Filter List";
+
+    @Element(PAGINATION)
+    private String pagination = "//span[contains(@class,'pageSizeControl')]";
+
+    @Element(FILTER_LIST)
+    private String filterList = "//div[contains(@class,'filterList__filter')]";
+
     private final static By launchesToolBar = By.xpath("//div[contains(@class,'launchFiltersToolbar__launch-filters')]");
     private final By moreDropdown = By.cssSelector("div[class*='entitiesSelector__toggler']");
     private final By attributeKeyInput = By.cssSelector("input[placeholder='Key']");

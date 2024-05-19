@@ -6,10 +6,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import reportportal.annotations.Element;
 import reportportal.annotations.PageName;
 
-import static reportportal.pages.LoginPage.Controls.*;
-
 @PageName("Login")
 public class LoginPage extends BasePage {
+
+    public final static String USERNAME = "Username";
+    public final static String PASSWORD = "Password";
+    public final static String LOGIN = "Login";
+
     @Element(USERNAME)
     private String usernameBox = "//input[@name='login']";
 
@@ -43,12 +46,6 @@ public class LoginPage extends BasePage {
 
     public Boolean getLoginErrorMessage(String errorMsg) {
         return getExplicitWait().until(ExpectedConditions.textToBePresentInElementLocated(loginErrLabel, errorMsg));
-    }
-
-    public static class Controls {
-        public final static String USERNAME = "Username";
-        public final static String PASSWORD = "Password";
-        public final static String LOGIN = "Login";
     }
 
 }

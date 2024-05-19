@@ -62,7 +62,7 @@ public class APIDefinitions {
         endpoint = apiSteps.updateProject(endpoint, projectName);
         List<Map<String, String>> updateFilterRequestList = dataTable.asMaps();
         for (Map<String, String> req : updateFilterRequestList) {
-            endpoint = apiSteps.updateFilterId(req.get("oldFilter"), endpoint);
+            endpoint = apiSteps.updateFilterId(req.get("name"), endpoint);
             System.out.println(endpoint);
             apiSteps.sendUpdateFilterRequest(endpoint, req);
         }
@@ -73,7 +73,7 @@ public class APIDefinitions {
         endpoint = apiSteps.updateProject(endpoint, projectName);
         List<Map<String, String>> deleteFilterRequestList = dataTable.asMaps();
         for (Map<String, String> req : deleteFilterRequestList) {
-            endpoint = apiSteps.updateFilterId(req.get("oldFilter"), endpoint);
+            endpoint = apiSteps.updateFilterId(req.get("filter"), endpoint);
             apiSteps.sendDeleteFilterRequest(endpoint);
         }
     }

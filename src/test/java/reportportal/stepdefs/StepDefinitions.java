@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 import static reportportal.drivers.BrowserFactory.launchUrl;
 import static reportportal.utils.EnvironmentUtils.getEnvironmentValue;
@@ -34,7 +35,7 @@ public class StepDefinitions {
     @Given("I launch Report Portal")
     public void launchReportPortal() {
         BrowserFactory.launchUrl(System.getenv("LOCAL_HOST_URL"));
-      //  launchUrl("http://localhost:8080/ui/#login");
+        //  launchUrl("http://localhost:8080/ui/#login");
     }
 
     @And("I enter {string} for login")
@@ -89,10 +90,20 @@ public class StepDefinitions {
         baseSteps.clickButton(element);
     }
 
+    @Then("The element {string} contains text {string}")
+    public void containsText(String element, String textValue) {
+        assertTrue(baseSteps.validateText(element, textValue));
+    }
+
+    @Then("The element {string} does not contains text {string}")
+    public void doesNotContainsText(String element, String textValue) {
+        assertFalse(baseSteps.validateText(element, textValue));
+    }
+
     @When("I fill the following fields:")
     public void enterCredentials(DataTable dataTable) {
         List<Map<String, String>> maps = dataTable.asMaps();
-        for(Map<String, String> map : maps) {
+        for (Map<String, String> map : maps) {
             baseSteps.enterValue(getEnvironmentValue(map.get("value")), map.get("field"));
         }
     }
@@ -100,5 +111,15 @@ public class StepDefinitions {
     @Then("I should be in {string} Page")
     public void validateCurrentPage(String pageName) {
         assertTrue(baseSteps.validatePage(pageName));
+    }
+
+    @When("I scroll into the view of {string} element")
+    public void scrollToView(String element) {
+        baseSteps.scrollToView(element);
+    }
+
+    @And("I toggle the display of {string} to {string}")
+    public void toggleFilterDisplayOnLaunches(String filterName, String targetToggle) {
+        pageManager.getFiltersPage().toggleFilterDisplay(filterName, targetToggle);
     }
 }

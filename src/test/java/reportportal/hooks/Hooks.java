@@ -18,9 +18,11 @@ public class Hooks {
     @After
     public void tearDown(Scenario scenario) throws IOException {
         if (!scenario.getSourceTagNames().contains("@api")) {
-            TakesScreenshot ts = (TakesScreenshot) getActiveDriver();
-            File screenshot = ts.getScreenshotAs(OutputType.FILE);
-            Allure.addAttachment("Test Evidence", FileUtils.openInputStream(screenshot));
+            if (scenario.isFailed()) {
+                TakesScreenshot ts = (TakesScreenshot) getActiveDriver();
+                File screenshot = ts.getScreenshotAs(OutputType.FILE);
+                Allure.addAttachment("Test Evidence", FileUtils.openInputStream(screenshot));
+            }
             quitDriver();
         }
     }

@@ -63,7 +63,6 @@ public class APISteps extends BaseSteps {
 
     public SoftAssert verifyResponseByJsonPathEqualsIsNotNull(String jsonPath, SoftAssert softly) {
         String actualValue = response.jsonPath().getString(jsonPath);
-        System.out.println("!!!!!" + actualValue);
         softly.assertNotNull(actualValue, jsonPath + " jsonPath");
         return softly;
     }

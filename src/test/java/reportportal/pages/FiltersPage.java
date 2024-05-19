@@ -6,6 +6,7 @@ import reportportal.annotations.PageName;
 
 import java.util.List;
 import java.util.Map;
+
 @PageName("Filters")
 public class FiltersPage extends BasePage {
     private final static By filterToolBar = By.xpath("//div[contains(@class,'filterPageToolbar__filter-search')]");
@@ -30,6 +31,10 @@ public class FiltersPage extends BasePage {
 
     public By getDeleteLocatorForFilter(String filterName) {
         return By.xpath(String.format("//span[contains(text(),'%s')]/ancestor::span/parent::div/following-sibling::div[contains(@class,'delete')]//div", filterName));
+    }
+
+    public By getEditLocatorForFilter(String filterName) {
+        return By.xpath(String.format("//span[contains(text(),'%s')]/ancestor::span/parent::div/following-sibling::div[contains(@class,'display-col')]//span/span", filterName));
     }
 
     public void deleteNamedFilter(String filterName) {
@@ -65,5 +70,16 @@ public class FiltersPage extends BasePage {
 
     public void openFilterAndNavigateToLaunches(String targetFilter) {
         getDriver().findElement(getLocatorForGivenFilterName(targetFilter)).click();
+    }
+
+    public void toggleFilterDisplay(String filterName, String targetToggle) {
+        if (!getCurrentDisplayValue(filterName).equalsIgnoreCase(targetToggle)) {
+            clickUsingJS(getDriver().findElement(getEditLocatorForFilter(filterName)));
+        }
+    }
+
+
+    public String getCurrentDisplayValue(String filterName) {
+        return getDriver().findElement(getEditLocatorForFilter(filterName)).getText();
     }
 }

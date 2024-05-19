@@ -1,5 +1,5 @@
 @reportportal @severity=critical
-Feature: Login Feature
+Feature: Report Portal - Login
   As an user
   I try to login Report Portal
   and check the positive and negative flows

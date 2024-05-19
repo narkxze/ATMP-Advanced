@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import reportportal.pages.BasePage;
 import reportportal.pages.PageManager;
 
+import static reportportal.pages.PageFactory.getPage;
+
 public class NavigationContainer extends BasePage {
     PageManager pageManager;
     private final By projectSelector = By.xpath("//aside//div[contains(@class,'main-block')]/div");
@@ -28,12 +30,12 @@ public class NavigationContainer extends BasePage {
 
     public boolean isNavigatedToDashboard() {
         click(dashBoardSelector);
-        return pageManager.getDashboardPage().verify();
+        return getPage("Dashboard").verify();
     }
 
     public boolean isNavigatedToLauncher() {
         click(launchesSelector);
-        return pageManager.getLaunchesPage().verify();
+        return getPage("Launches").verify();
     }
 
     //
@@ -44,22 +46,22 @@ public class NavigationContainer extends BasePage {
 
     public boolean isNavigatedToFilter() {
         click(filtersSelector);
-        return pageManager.getFiltersPage().verify();
+        return getPage("Filters").verify();
     }
 
     public boolean isNavigatedToUserDebug() {
         click(debugSelector);
-        return pageManager.getUserDebugPage().verify();
+        return getPage("Debug").verify();
     }
 
     public boolean isNavigatedToMembers() {
         click(memberSelector);
-        return pageManager.getMembersPage().verify();
+        return getPage("Members").verify();
     }
 
     public boolean isNavigatedToSettings() {
         click(settingsSelector);
-        return pageManager.getSettingsPage().verify();
+        return getPage("Settings").verify();
     }
 
     public boolean isUserBlockDisplayed() {
