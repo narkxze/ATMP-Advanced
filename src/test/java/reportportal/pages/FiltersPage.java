@@ -45,6 +45,7 @@ public class FiltersPage extends BasePage {
     }
 
     public boolean validateAbsenceOfFilter(String filterName) {
+        waitUntilVisible(filterNames);
         return getDriver().findElements(filterNames).stream().noneMatch(filter -> filter.getText().contains(filterName));
     }
 

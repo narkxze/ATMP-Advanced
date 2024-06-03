@@ -28,7 +28,7 @@ public class APISteps extends BaseSteps {
         return RestAssured.given()
                 .config(config)
                 .filter(new AllureRestAssured())
-                .baseUri(System.getenv("API_BASE_URL"))
+                .baseUri(System.getenv("RP_URL"))
                 .auth()
                 .preemptive().oauth2(System.getenv("API_TOKEN"));
     }
