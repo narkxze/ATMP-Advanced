@@ -37,6 +37,7 @@ pipeline {
                         userRemoteConfigs                : [[credentialsId: 'naresh-credentials-id', url: 'https://github.com/narkxze/ATMP-Advanced.git']]
                 ])
             }
+        }
 
             stage('Setup Build') {
                 steps {
@@ -76,4 +77,3 @@ pipeline {
             }
         }
     }
-}
