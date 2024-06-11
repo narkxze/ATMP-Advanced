@@ -49,7 +49,7 @@ Feature: Report Portal - API Filters
     And Response filtered by JSON Path contains values
       | field   | value                |
       | message | successfully updated |
-    Given I prepare and send DELETE request for '/v1/{projectName}/filter/{filterId}' endpoint to Delete Filter under 'superadmin_personal' project
+    Given I prepare and send DELETE request for '/api/v1/{projectName}/filter/{filterId}' endpoint to Delete Filter under 'superadmin_personal' project
       | filter   |
       | <filter> |
     But The Response code is 200
