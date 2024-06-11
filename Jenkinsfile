@@ -57,16 +57,20 @@ pipeline {
 
         stage('Report') {
             steps {
-                archiveArtifacts artifacts: '**/*.*', fingerprint: true
-                publishHTML(
-                        reportName: 'Report Portal Allure Report',
-                        reportDir: 'build/allure-results/reports/allure-report/allureReport',
-                        reportFiles: 'index.html',
-                        keepAll: true,
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true
-                )
+                bat 'gradlew allureReport'
             }
+        }
+    }
+
+    post {
+        always {
+            allure([
+                    includeProperties: false,
+                    jdk              : '',
+                    properties       : [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results          : [[path: 'build/allure-results']]
+            ])
         }
     }
 }

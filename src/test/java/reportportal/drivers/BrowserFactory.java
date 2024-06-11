@@ -31,7 +31,7 @@ public class BrowserFactory {
 
 
     public static WebDriver getDriverInstance() {
-           String browser = System.getenv("browser");
+           String browser = System.getenv("BROWSER");
      //   String browser = "CHROME";
         driver.set(BROWSERS.get(browser).get());
         setupExplicitWait();
