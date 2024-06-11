@@ -33,7 +33,7 @@ pipeline {
             steps {
                 checkout([
                         $class                           : 'GitSCM',
-                        branches                         : [[name: '*/jenkins-reportportal']],
+                        branches                         : [[name: '*/reportportal']],
                         doGenerateSubmoduleConfigurations: false,
                         extensions                       : [],
                         submoduleCfg                     : [],
