@@ -10,7 +10,7 @@ pipeline {
     environment {
         admin_username = 'superadmin'
         admin_password = 'erebus'
-        API_TOKEN = 'admin-naresh-key_RcIR4hl3TIO7FIZsujR5Y2WV9b1tAKxKCzDbBrGWY5KGYQh1-m3YRddCevnkvAM9'
+        API_TOKEN = 'superAdmin_lYKNwovlSZOZ792HUy44pwpj_mpR2vNUKjvUN9JGNuHWz-PVLreLPhmmDSkg4q8P'
         EPAM_PASSWORD = 12345
         EPAM_URL = 'https://rp.epam.com'
         EPAM_USERNAME = 'nareshkarthi_sakthivel@epam.com'
