@@ -50,7 +50,6 @@ pipeline {
         stage('Test Run') {
             steps {
                 sh "./gradlew clean test \"-Dcucumber.filter.tags=${params.MODULE}\" \"-Dbrowser=${params.BROWSER}\" \"-DRP_URL=${params.RP_URL}\" \"-Dadmin_username=${env.admin_username}\" \"-Dadmin_password=${env.admin_password}\" \"-DAPI_TOKEN=${env.API_TOKEN}\" \"-DEPAM_URL=${env.EPAM_URL}\" \"-DEPAM_USERNAME=${env.EPAM_USERNAME}\" \"-DEPAM_PASSWORD=${env.EPAM_PASSWORD}\" \"-DVALID_USERNAME=${env.VALID_USERNAME}\" \"-DVALID_PASSWORD=${env.VALID_PASSWORD}\" \"-Dusername=${env.username}\" \"-Ddataproviderthreadcount=1\""
-                currentBuild.result = 'SUCCESS'
             }
         }
 
