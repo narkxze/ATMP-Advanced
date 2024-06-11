@@ -57,7 +57,7 @@ pipeline {
 
         stage('Report') {
             steps {
-                archiveArtifacts artifacts: '**/allure-results/reports/allure-report/allureReport/**/*.*', fingerprint: true
+                archiveArtifacts artifacts: '**/*.*', fingerprint: true
                 publishHTML(
                         reportName: 'Report Portal Allure Report',
                         reportDir: 'build/allure-results/reports/allure-report/allureReport',
