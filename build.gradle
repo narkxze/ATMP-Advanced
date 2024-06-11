@@ -31,12 +31,6 @@ repositories {
 }
 
 def framework = System.getProperty('framework')
-//env browser = System.getProperty('browser')
-//def ui_url = System.getProperty('')
-//println browser
-//println ui_url
-//def username = System.getProperty('username')
-//def password = System.getProperty('password')
 
 dependencies {
     runtimeOnly group: 'org.aspectj', name: 'aspectjweaver', version: "$aspectj"
