@@ -39,41 +39,33 @@ pipeline {
             }
         }
 
-            stage('Setup Build') {
-                steps {
-                    script {
-                        currentBuild.displayName = "${env.browser}| ${MODULE}"
-                    }
-                }
-            }
-
-            stage('Test Run') {
-                steps {
-                    env.browser = params.BROWSER
-                    env.RP_URL = params.RP_URL
-                    env.MODULE = params.MODULE
-                    try {
-                        sh './gradlew clean test "-Dcucumber.filter.tags=${env.MODULE}" "-Dbrowser=${env.BROWSER}" "-DRP_URL=${env.RP_URL}" "-Dadmin_username=${env.admin_username}" "-Dadmin_password=${env.admin_password}" "-DAPI_TOKEN=${env.API_TOKEN}" "-DEPAM_URL=${env.EPAM_URL}" "-DEPAM_USERNAME=${env.EPAM_USERNAME}" "-DEPAM_PASSWORD=${env.EPAM_PASSWORD}" "-DVALID_USERNAME=${env.VALID_USERNAME}" "-DVALID_PASSWORD=${env.VALID_PASSWORD}" "-Dusername=${env.username}" "-Ddataproviderthreadcount=1"'
-                        currentBuild.result = 'SUCCESS'
-                    } catch (Exception ex) {
-                        println('Exception caught in test run' + ex.getMessage())
-                        currentBuild.result = 'FAILED'
-                    }
-                }
-            }
-
-            stage('Report') {
-                steps {
-                    archiveArtifacts artifacts: '**/allure-results/reports/allure-report/allureReport/**/*.*', fingerprint: true
-                    publishHTML(
-                            reportName: 'Report Portal Allure Report',
-                            reportDir: 'build/allure-results/reports/allure-report/allureReport',
-                            reportFiles: 'index.html',
-                            keepAll: true,
-                            allowMissing: false,
-                            alwaysLinkToLastBuild: true
-                    )
+        stage('Setup Build') {
+            steps {
+                script {
+                    currentBuild.displayName = "${env.browser}| ${MODULE}"
                 }
             }
         }
+
+        stage('Test Run') {
+            steps {
+                sh "./gradlew clean test \"-Dcucumber.filter.tags=${params.MODULE}\" \"-Dbrowser=${params.BROWSER}\" \"-DRP_URL=${params.RP_URL}\" \"-Dadmin_username=${env.admin_username}\" \"-Dadmin_password=${env.admin_password}\" \"-DAPI_TOKEN=${env.API_TOKEN}\" \"-DEPAM_URL=${env.EPAM_URL}\" \"-DEPAM_USERNAME=${env.EPAM_USERNAME}\" \"-DEPAM_PASSWORD=${env.EPAM_PASSWORD}\" \"-DVALID_USERNAME=${env.VALID_USERNAME}\" \"-DVALID_PASSWORD=${env.VALID_PASSWORD}\" \"-Dusername=${env.username}\" \"-Ddataproviderthreadcount=1\""
+                currentBuild.result = 'SUCCESS'
+            }
+        }
+
+        stage('Report') {
+            steps {
+                archiveArtifacts artifacts: '**/allure-results/reports/allure-report/allureReport/**/*.*', fingerprint: true
+                publishHTML(
+                        reportName: 'Report Portal Allure Report',
+                        reportDir: 'build/allure-results/reports/allure-report/allureReport',
+                        reportFiles: 'index.html',
+                        keepAll: true,
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true
+                )
+            }
+        }
     }
+}
