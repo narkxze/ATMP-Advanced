@@ -52,11 +52,7 @@ pipeline {
 
         stage('Test Run') {
             steps {
-                def AllureHome = "$WORKSPACE/target/allure-results"
                 bat '''
-                if not exist %AllureHome% mkdir %AllureHome%
-                del /Q /F $AllureHome%\\*.json
-                cd %WORKSPACE%
                  gradlew clean test allureReport "-Dcucumber.filter.tags=%MODULE%" "-Dbrowser=%BROWSER%" "-DRP_URL=%RP_URL%" "-Dadmin_username=%admin_username%" "-Dadmin_password=%admin_password%" "-DAPI_TOKEN=%API_TOKEN%" "-DEPAM_URL=%EPAM_URL%" "-DEPAM_USERNAME=%EPAM_USERNAME%" "-DEPAM_PASSWORD=%EPAM_PASSWORD%" "-DVALID_USERNAME=%VALID_USERNAME%" "-DVALID_PASSWORD=%VALID_PASSWORD%" "-Dusername=%username%" "-Ddataproviderthreadcount=1"
             '''
             }
@@ -70,7 +66,7 @@ pipeline {
                         properties       : [],
                         reportBuildPolicy: 'ALWAYS',
                         results          : [[path: 'build/allure-results']]])
-                echo "Allure Report Generated"
+                echo "Allure Report Generate"
             }
         }
     }
