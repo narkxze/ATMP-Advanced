@@ -66,7 +66,7 @@ pipeline {
                         properties       : [],
                         reportBuildPolicy: 'ALWAYS',
                         results          : [[path: 'build/allure-results']]])
-                echo "Allure Report Generate"
+                echo "Allure Report Generated"
             }
         }
     }
