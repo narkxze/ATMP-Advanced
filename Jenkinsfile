@@ -17,6 +17,9 @@ pipeline {
         VALID_USERNAME = 'default'
         VALID_PASSWORD = '1q2w3e'
         username = 'default'
+        BROWSER = "${params.BROWSER}"
+        RP_URL = "${params.RP_URL}"
+        MODULE = "${params.MODULE}"
     }
 
     stages {
