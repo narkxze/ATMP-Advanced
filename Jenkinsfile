@@ -48,9 +48,9 @@ pipeline {
         }
 
         stage('Test Run') {
-            steps {
-                bat gradlew clean test "-Dcucumber.filter.tags=%MODULE%" "-Dbrowser=%BROWSER%" "-DRP_URL=%RP_URL%" "-Dadmin_username=%admin_username%" "-Dadmin_password=%admin_password%" "-DAPI_TOKEN=%API_TOKEN%" "-DEPAM_URL=%EPAM_URL%" "-DEPAM_USERNAME=%EPAM_USERNAME%" "-DEPAM_PASSWORD=%EPAM_PASSWORD%" "-DVALID_USERNAME=%VALID_USERNAME%" "-DVALID_PASSWORD=%VALID_PASSWORD%" "-Dusername=%username%" "-Ddataproviderthreadcount=1"
-            }
+            bat '''
+                 gradlew clean test "-Dcucumber.filter.tags=%MODULE%" "-Dbrowser=%BROWSER%" "-DRP_URL=%RP_URL%" "-Dadmin_username=%admin_username%" "-Dadmin_password=%admin_password%" "-DAPI_TOKEN=%API_TOKEN%" "-DEPAM_URL=%EPAM_URL%" "-DEPAM_USERNAME=%EPAM_USERNAME%" "-DEPAM_PASSWORD=%EPAM_PASSWORD%" "-DVALID_USERNAME=%VALID_USERNAME%" "-DVALID_PASSWORD=%VALID_PASSWORD%" "-Dusername=%username%" "-Ddataproviderthreadcount=1"
+            '''
         }
 
         stage('Report') {
